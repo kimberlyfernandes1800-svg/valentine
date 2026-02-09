@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Valentine</title>
+  <style>
+    body{
+      margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: #fff;
+      padding: 18px;
+      overflow:hidden;
+    }
+    .card{
+      width:min(520px, 92vw);
+      text-align:center;
+      border:1px solid #eee;
+      border-radius:16px;
+      padding: 28px 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.06);
+      background:#fff;
+    }
+    h1{ margin:0 0 18px; font-size:28px; line-height:1.2; }
+    .sub{ margin: 0 0 20px; opacity:.7; }
+    .btnRow{ display:flex; gap:14px; justify-content:center; margin-top:18px; flex-wrap:wrap; }
+    button{
+      font-size:18px;
+      padding: 12px 20px;
+      border-radius: 999px;
+      border: 1px solid #ddd;
+      background:#fff;
+      cursor:pointer;
+      user-select:none;
+      touch-action: manipulation;
+    }
+    #yesBtn{
+      border-color:#111;
+      background:#111;
+      color:#fff;
+    }
+    #noBtn{
+      position: fixed;
+      left: 50%;
+      top: 60%;
+      transform: translate(-50%, -50%);
+      z-index: 5;
+    }
+    .hidden{ display:none; }
+    .yay{
+      font-size:26px;
+      margin-top:14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card" id="card">
+    <h1 id="q">Will you be my Valentine? 💘</h1>
+    <p class="sub" id="hint">Be honest… 😇</p>
+
+    <div class="btnRow">
+      <button id="yesBtn" type="button">Yes 💖</button>
+    </div>
+  </div>
+
+  <button id="noBtn" type="button" aria-label="No">No 🙃</button>
+
+  <script>
+    // ✅ Customize these
+    const NAME_IN_QUESTION = ""; // Example: "Tushar"
+    const SUCCESS_LINE_1 = "YAYYYYYY 💖";
+    const SUCCESS_LINE_2 = "Send me a screenshot 😭✨";
+    const NO_MESSAGES = [
+      "Are you sure? 👀",
+      "Try again 🙃",
+      "Nope, not allowed 😌",
+      "Think again 😭",
+      "Plssss 😭💘"
+    ];
+
+    // Update question with name if provided
+    const q = document.getElementById("q");
+    if (NAME_IN_QUESTION.trim()) {
+      q.textContent = `${NAME_IN_QUESTION}, will you be my Valentine? 💘`;
+    }
+
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn  = document.getElementById("noBtn");
+    const card   = document.getElementById("card");
+    const hint   = document.getElementById("hint");
+
+    let noClickCount = 0;
+
+    function rand(min, max){ return Math.floor(Math.random()*(max-min+1))+min; }
+
+    function moveNoButton(){
+      const pad = 12;
+      const bw = noBtn.offsetWidth;
+      const bh = noBtn.offsetHeight;
+
+      const x = rand(pad, window.innerWidth - bw - pad);
+      const y = rand(pad, window.innerHeight - bh - pad);
+
+      noBtn.style.left = x + "px";
+      noBtn.style.top  = y + "px";
+      noBtn.style.transform = "translate(0,0)";
+    }
+
+    function evade(){
+      const msg = NO_MESSAGES[Math.min(noClickCount, NO_MESSAGES.length - 1)];
+      noBtn.textContent = msg;
+      noClickCount++;
+      moveNoButton();
+    }
+
+    // Works on mobile + desktop
+    noBtn.addEventListener("pointerenter", evade);
+    noBtn.addEventListener("pointerdown", (e) => { e.preventDefault(); evade(); });
+    noBtn.addEventListener("click", (e) => { e.preventDefault(); evade(); });
+
+    yesBtn.addEventListener("click", () => {
+      noBtn.classList.add("hidden");
+      hint.classList.add("hidden");
+      card.innerHTML = `
+        <h1>${SUCCESS_LINE_1}</h1>
+        <div class="yay">${SUCCESS_LINE_2}</div>
+        <div style="margin-top:18px;font-size:40px;">💞💞💞</div>
+      `;
+    });
+
+    window.addEventListener("load", () => {
+      const rect = card.getBoundingClientRect();
+      noBtn.style.left = (rect.left + rect.width/2 + 90) + "px";
+      noBtn.style.top  = (rect.top + rect.height/2 + 60) + "px";
+      noBtn.style.transform = "translate(-50%,-50%)";
+    });
+  </script>
+</body>
+</html>
