@@ -8,9 +8,10 @@
   <style>
     :root{
       --card: rgba(255,255,255,.78);
-      --border: rgba(0,0,0,.08);
-      --shadow: 0 18px 50px rgba(0,0,0,.10);
-      --radius: 22px;
+      --border: rgba(255,255,255,.35);
+      --shadow: 0 22px 70px rgba(0,0,0,.18);
+      --radius: 26px;
+      --ink: #1b0b12;
     }
     *{box-sizing:border-box}
 
@@ -23,38 +24,60 @@
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       padding: 22px;
       overflow:hidden;
+      color: var(--ink);
+
       background:
-        radial-gradient(1200px 800px at 10% 10%, rgba(255,0,102,.18), transparent 60%),
-        radial-gradient(1000px 700px at 90% 20%, rgba(255,153,0,.14), transparent 55%),
-        radial-gradient(900px 600px at 50% 90%, rgba(106,13,173,.12), transparent 55%),
-        #fff;
+        radial-gradient(1200px 900px at 15% 15%, rgba(255,0,102,.38), transparent 60%),
+        radial-gradient(1100px 850px at 90% 18%, rgba(255,65,135,.30), transparent 55%),
+        radial-gradient(1000px 800px at 50% 92%, rgba(150,0,80,.20), transparent 55%),
+        radial-gradient(900px 650px at 50% 40%, rgba(255,180,210,.22), transparent 55%),
+        linear-gradient(180deg, #fff 0%, #fff2f9 40%, #fff 100%);
     }
 
-    .hearts{
+    .glow{
+      position:fixed;
+      inset:-20%;
+      pointer-events:none;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255,0,90,.16), transparent 45%),
+        radial-gradient(circle at 70% 40%, rgba(255,80,140,.14), transparent 45%),
+        radial-gradient(circle at 50% 80%, rgba(120,0,70,.12), transparent 50%);
+      filter: blur(18px);
+      opacity:.95;
+    }
+
+    /* floating sensual hearts */
+    .floaters{
       position:fixed;
       inset:0;
       pointer-events:none;
-      opacity:.6;
-      background-image:
-        radial-gradient(circle at 12% 18%, rgba(255,0,102,.18) 0 2px, transparent 3px),
-        radial-gradient(circle at 35% 28%, rgba(255,0,102,.14) 0 2px, transparent 3px),
-        radial-gradient(circle at 70% 20%, rgba(255,0,102,.16) 0 2px, transparent 3px),
-        radial-gradient(circle at 88% 42%, rgba(255,0,102,.12) 0 2px, transparent 3px),
-        radial-gradient(circle at 18% 78%, rgba(255,0,102,.14) 0 2px, transparent 3px),
-        radial-gradient(circle at 62% 72%, rgba(255,0,102,.10) 0 2px, transparent 3px);
-      filter: blur(.2px);
+      overflow:hidden;
+    }
+    .floater{
+      position:absolute;
+      bottom:-14vh;
+      opacity:.22;
+      animation: rise linear forwards;
+      user-select:none;
+      text-shadow: 0 10px 30px rgba(0,0,0,.08);
+    }
+    @keyframes rise{
+      to{
+        transform: translateY(-130vh) translateX(var(--drift)) rotate(var(--rot));
+        opacity: 0.05;
+      }
     }
 
     .card{
-      width:min(580px, 94vw);
+      width:min(620px, 94vw);
       text-align:center;
       background: var(--card);
       border: 1px solid var(--border);
       box-shadow: var(--shadow);
       border-radius: var(--radius);
-      padding: 30px 22px 26px;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      padding: 32px 22px 28px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       position:relative;
     }
 
@@ -62,18 +85,19 @@
       display:inline-flex;
       gap:10px;
       align-items:center;
-      border:1px solid var(--border);
+      border:1px solid rgba(0,0,0,.08);
       padding: 8px 12px;
       border-radius: 999px;
-      background: rgba(255,255,255,.7);
+      background: rgba(255,255,255,.75);
       font-size: 14px;
-      opacity:.9;
+      opacity:.92;
     }
 
     h1{
-      margin: 16px 0 8px;
-      font-size: clamp(26px, 4vw, 34px);
+      margin: 18px 0 8px;
+      font-size: clamp(26px, 4vw, 36px);
       line-height:1.15;
+      letter-spacing: -0.3px;
     }
 
     .sub{
@@ -84,11 +108,11 @@
 
     .offer{
       margin: 14px auto 0;
-      width:min(460px, 92%);
+      width:min(500px, 94%);
       text-align:left;
       border:1px dashed rgba(0,0,0,.15);
-      background: rgba(255,255,255,.58);
-      border-radius: 16px;
+      background: rgba(255,255,255,.62);
+      border-radius: 18px;
       padding: 14px 14px 12px;
       font-size: 15px;
       line-height:1.35;
@@ -108,7 +132,7 @@
       display:flex;
       gap:14px;
       justify-content:center;
-      margin-top:18px;
+      margin-top:20px;
       flex-wrap:wrap;
     }
 
@@ -117,11 +141,12 @@
       padding: 12px 20px;
       border-radius: 999px;
       border: 1px solid rgba(0,0,0,.14);
-      background: rgba(255,255,255,.85);
+      background: rgba(255,255,255,.88);
       cursor:pointer;
       user-select:none;
       touch-action: manipulation;
-      transition: transform .08s ease;
+      transition: transform .08s ease, box-shadow .15s ease;
+      box-shadow: 0 10px 30px rgba(0,0,0,.06);
     }
 
     button:active{ transform: scale(.98); }
@@ -131,8 +156,10 @@
       background:#111;
       color:#fff;
       padding-inline: 26px;
+      box-shadow: 0 16px 40px rgba(0,0,0,.14);
     }
 
+    /* No button runs away */
     #noBtn{
       position: fixed;
       left: 50%;
@@ -147,13 +174,13 @@
     .yay{
       margin-top: 10px;
       font-size: clamp(18px, 3vw, 22px);
-      opacity:.92;
+      opacity:.95;
     }
 
     .mini{
       margin-top:12px;
       font-size:14px;
-      opacity:.7;
+      opacity:.72;
     }
 
     .confetti{
@@ -166,19 +193,20 @@
       position:absolute;
       top:-10vh;
       animation: fall linear forwards;
-      opacity:.9;
+      opacity:.95;
     }
     @keyframes fall{
-      to{ transform: translateY(120vh) rotate(320deg); opacity:0.95; }
+      to{ transform: translateY(125vh) rotate(320deg); opacity:0.9; }
     }
   </style>
 </head>
 
 <body>
-  <div class="hearts"></div>
+  <div class="glow"></div>
+  <div class="floaters" id="floaters"></div>
 
   <div class="card" id="card">
-    <div class="tag">💌 For <strong style="font-weight:700">Tushar</strong> • from Kim</div>
+    <div class="tag">💌 For <strong style="font-weight:700">Tushar</strong> • from Rhea</div>
 
     <h1 id="q">Tushar, will you be my Valentine? 💘</h1>
     <p class="sub" id="hint">Pakka pakka? 😌</p>
@@ -189,6 +217,8 @@
         <li>Brownie 🍫</li>
         <li>Rasmalai 🥛✨</li>
         <li>Every weekend welcome 🫶</li>
+        <li>I will forgive all your mistakes 😌</li>
+        <li>I will blow dry your hair 🫶💨</li>
       </ul>
     </div>
 
@@ -204,11 +234,38 @@
   <div class="confetti" id="confetti"></div>
 
   <script>
+    // Floating hearts background
+    const floaters = document.getElementById("floaters");
+    const HEARTS = ["💋","💖","💘","💞","💗","🫦","✨","🫶"];
+
+    function rand(min, max){ return Math.floor(Math.random()*(max-min+1))+min; }
+
+    function spawnFloater(){
+      const s = document.createElement("span");
+      s.className = "floater";
+      s.textContent = HEARTS[rand(0, HEARTS.length-1)];
+
+      s.style.left = rand(0, 100) + "vw";
+      s.style.fontSize = rand(18, 38) + "px";
+      s.style.animationDuration = rand(6500, 11000) + "ms";
+      s.style.setProperty("--drift", rand(-60, 60) + "px");
+      s.style.setProperty("--rot", rand(-18, 18) + "deg");
+
+      floaters.appendChild(s);
+      setTimeout(() => s.remove(), 12000);
+    }
+
+    // start floaters
+    for(let i=0;i<10;i++) setTimeout(spawnFloater, i*350);
+    setInterval(spawnFloater, 550);
+
     // No button messages (each time he tries)
     const NO_MESSAGES = [
       "Pakka? 😭",
       "Should I make brownies? 🍫",
       "I can make rasmalai too 🥛✨",
+      "I’ll forgive all your mistakes 😌",
+      "I’ll blow dry your hair 🫶💨",
       "Every weekend welcome is ready 🫶",
       "Last chance… say YES 😌💘"
     ];
@@ -216,7 +273,7 @@
     // Yes screen lines
     const SUCCESS_LINE_1 = "YAYYYYYY 💖";
     const SUCCESS_LINE_2 = "Weekend welcome will be ready 🫶✨";
-    const SUCCESS_LINE_3 = "Plus our date at an Indian restaurant 🍽️🇮🇳 (my treat 😉)";
+    const SUCCESS_LINE_3 = "Plus our date at an Indian restaurant 🍽️🇮🇳";
     const SUCCESS_LINE_4 = "Brownie + Rasmalai loading… 🍫🥛";
 
     const yesBtn = document.getElementById("yesBtn");
@@ -225,8 +282,6 @@
     const confetti = document.getElementById("confetti");
 
     let noCount = 0;
-
-    function rand(min, max){ return Math.floor(Math.random()*(max-min+1))+min; }
 
     function moveNo(){
       const pad = 14;
@@ -255,14 +310,14 @@
 
     function dropConfetti(){
       confetti.innerHTML = "";
-      const icons = ["💖","💘","💗","💞","✨","🫶"];
-      for(let i=0;i<46;i++){
+      const icons = ["💖","💘","💗","💞","✨","🫶","💋"];
+      for(let i=0;i<50;i++){
         const s = document.createElement("span");
         s.textContent = icons[rand(0, icons.length-1)];
         s.style.left = rand(0, 100) + "vw";
         s.style.animationDuration = rand(1600, 3200) + "ms";
         s.style.animationDelay = rand(0, 700) + "ms";
-        s.style.fontSize = rand(16, 28) + "px";
+        s.style.fontSize = rand(16, 30) + "px";
         confetti.appendChild(s);
       }
       setTimeout(() => confetti.innerHTML = "", 4200);
@@ -278,15 +333,15 @@
         <div class="yay">${SUCCESS_LINE_2}</div>
         <div class="yay">${SUCCESS_LINE_3}</div>
         <div class="yay">${SUCCESS_LINE_4}</div>
-        <div style="margin-top:18px;font-size:44px;">💞💞💞</div>
+        <div style="margin-top:18px;font-size:46px;">💞💞💞</div>
       `;
     });
 
-    // Place No near the card initially
+    // Place No near the card at first
     window.addEventListener("load", () => {
       const rect = card.getBoundingClientRect();
-      noBtn.style.left = (rect.left + rect.width/2 + 120) + "px";
-      noBtn.style.top  = (rect.top + rect.height/2 + 80) + "px";
+      noBtn.style.left = (rect.left + rect.width/2 + 140) + "px";
+      noBtn.style.top  = (rect.top + rect.height/2 + 90) + "px";
       noBtn.style.transform = "translate(-50%,-50%)";
     });
   </script>
