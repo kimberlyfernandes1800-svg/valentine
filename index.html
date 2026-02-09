@@ -3,98 +3,233 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Valentine</title>
+  <title>Tushar 💘</title>
+
   <style>
+    :root{
+      --card: rgba(255,255,255,.78);
+      --border: rgba(0,0,0,.08);
+      --shadow: 0 18px 50px rgba(0,0,0,.10);
+      --radius: 22px;
+    }
+    *{box-sizing:border-box}
+
     body{
-      margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: #fff;
-      padding: 18px;
+      margin:0;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      padding: 22px;
       overflow:hidden;
+      background:
+        radial-gradient(1200px 800px at 10% 10%, rgba(255,0,102,.18), transparent 60%),
+        radial-gradient(1000px 700px at 90% 20%, rgba(255,153,0,.14), transparent 55%),
+        radial-gradient(900px 600px at 50% 90%, rgba(106,13,173,.12), transparent 55%),
+        #fff;
     }
+
+    .hearts{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.6;
+      background-image:
+        radial-gradient(circle at 12% 18%, rgba(255,0,102,.18) 0 2px, transparent 3px),
+        radial-gradient(circle at 35% 28%, rgba(255,0,102,.14) 0 2px, transparent 3px),
+        radial-gradient(circle at 70% 20%, rgba(255,0,102,.16) 0 2px, transparent 3px),
+        radial-gradient(circle at 88% 42%, rgba(255,0,102,.12) 0 2px, transparent 3px),
+        radial-gradient(circle at 18% 78%, rgba(255,0,102,.14) 0 2px, transparent 3px),
+        radial-gradient(circle at 62% 72%, rgba(255,0,102,.10) 0 2px, transparent 3px);
+      filter: blur(.2px);
+    }
+
     .card{
-      width:min(520px, 92vw);
+      width:min(580px, 94vw);
       text-align:center;
-      border:1px solid #eee;
-      border-radius:16px;
-      padding: 28px 18px;
-      box-shadow: 0 10px 30px rgba(0,0,0,.06);
-      background:#fff;
+      background: var(--card);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius);
+      padding: 30px 22px 26px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      position:relative;
     }
-    h1{ margin:0 0 18px; font-size:28px; line-height:1.2; }
-    .sub{ margin: 0 0 20px; opacity:.7; }
-    .btnRow{ display:flex; gap:14px; justify-content:center; margin-top:18px; flex-wrap:wrap; }
+
+    .tag{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      border:1px solid var(--border);
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.7);
+      font-size: 14px;
+      opacity:.9;
+    }
+
+    h1{
+      margin: 16px 0 8px;
+      font-size: clamp(26px, 4vw, 34px);
+      line-height:1.15;
+    }
+
+    .sub{
+      margin: 0 0 18px;
+      font-size: 16px;
+      opacity:.75;
+    }
+
+    .offer{
+      margin: 14px auto 0;
+      width:min(460px, 92%);
+      text-align:left;
+      border:1px dashed rgba(0,0,0,.15);
+      background: rgba(255,255,255,.58);
+      border-radius: 16px;
+      padding: 14px 14px 12px;
+      font-size: 15px;
+      line-height:1.35;
+    }
+
+    .offer strong{
+      display:block;
+      margin-bottom:6px
+    }
+
+    .offer ul{
+      margin:0;
+      padding-left:18px
+    }
+
+    .btnRow{
+      display:flex;
+      gap:14px;
+      justify-content:center;
+      margin-top:18px;
+      flex-wrap:wrap;
+    }
+
     button{
       font-size:18px;
       padding: 12px 20px;
       border-radius: 999px;
-      border: 1px solid #ddd;
-      background:#fff;
+      border: 1px solid rgba(0,0,0,.14);
+      background: rgba(255,255,255,.85);
       cursor:pointer;
       user-select:none;
       touch-action: manipulation;
+      transition: transform .08s ease;
     }
+
+    button:active{ transform: scale(.98); }
+
     #yesBtn{
       border-color:#111;
       background:#111;
       color:#fff;
+      padding-inline: 26px;
     }
+
     #noBtn{
       position: fixed;
       left: 50%;
-      top: 60%;
+      top: 62%;
       transform: translate(-50%, -50%);
       z-index: 5;
+      white-space:nowrap;
     }
+
     .hidden{ display:none; }
+
     .yay{
-      font-size:26px;
-      margin-top:14px;
+      margin-top: 10px;
+      font-size: clamp(18px, 3vw, 22px);
+      opacity:.92;
+    }
+
+    .mini{
+      margin-top:12px;
+      font-size:14px;
+      opacity:.7;
+    }
+
+    .confetti{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      overflow:hidden;
+    }
+    .confetti span{
+      position:absolute;
+      top:-10vh;
+      animation: fall linear forwards;
+      opacity:.9;
+    }
+    @keyframes fall{
+      to{ transform: translateY(120vh) rotate(320deg); opacity:0.95; }
     }
   </style>
 </head>
+
 <body>
+  <div class="hearts"></div>
+
   <div class="card" id="card">
-    <h1 id="q">Will you be my Valentine? 💘</h1>
-    <p class="sub" id="hint">Be honest… 😇</p>
+    <div class="tag">💌 For <strong style="font-weight:700">Tushar</strong> • from Ria</div>
+
+    <h1 id="q">Tushar, will you be my Valentine? 💘</h1>
+    <p class="sub" id="hint">Pakka pakka? 😌</p>
+
+    <div class="offer">
+      <strong>If you say YES, you get:</strong>
+      <ul>
+        <li>Brownie 🍫</li>
+        <li>Rasmalai 🥛✨</li>
+        <li>Every weekend welcome 🫶</li>
+      </ul>
+    </div>
 
     <div class="btnRow">
-      <button id="yesBtn" type="button">Yes 💖</button>
+      <button id="yesBtn" type="button">YESSS 💖</button>
     </div>
+
+    <div class="mini">*No button is shy, it may run away…*</div>
   </div>
 
   <button id="noBtn" type="button" aria-label="No">No 🙃</button>
 
+  <div class="confetti" id="confetti"></div>
+
   <script>
-    // ✅ Customize these
-    const NAME_IN_QUESTION = ""; // Example: "Tushar"
-    const SUCCESS_LINE_1 = "YAYYYYYY 💖";
-    const SUCCESS_LINE_2 = "Send me a screenshot 😭✨";
+    // No button messages (each time he tries)
     const NO_MESSAGES = [
-      "Are you sure? 👀",
-      "Try again 🙃",
-      "Nope, not allowed 😌",
-      "Think again 😭",
-      "Plssss 😭💘"
+      "Pakka? 😭",
+      "Should I make brownies? 🍫",
+      "I can make rasmalai too 🥛✨",
+      "Every weekend welcome is ready 🫶",
+      "Last chance… say YES 😌💘"
     ];
 
-    // Update question with name if provided
-    const q = document.getElementById("q");
-    if (NAME_IN_QUESTION.trim()) {
-      q.textContent = `${NAME_IN_QUESTION}, will you be my Valentine? 💘`;
-    }
+    // Yes screen lines
+    const SUCCESS_LINE_1 = "YAYYYYYY 💖";
+    const SUCCESS_LINE_2 = "Weekend welcome will be ready 🫶✨";
+    const SUCCESS_LINE_3 = "Plus our date at an Indian restaurant 🍽️🇮🇳 (my treat 😉)";
+    const SUCCESS_LINE_4 = "Brownie + Rasmalai loading… 🍫🥛";
 
     const yesBtn = document.getElementById("yesBtn");
     const noBtn  = document.getElementById("noBtn");
     const card   = document.getElementById("card");
-    const hint   = document.getElementById("hint");
+    const confetti = document.getElementById("confetti");
 
-    let noClickCount = 0;
+    let noCount = 0;
 
     function rand(min, max){ return Math.floor(Math.random()*(max-min+1))+min; }
 
-    function moveNoButton(){
-      const pad = 12;
+    function moveNo(){
+      const pad = 14;
       const bw = noBtn.offsetWidth;
       const bh = noBtn.offsetHeight;
 
@@ -107,31 +242,51 @@
     }
 
     function evade(){
-      const msg = NO_MESSAGES[Math.min(noClickCount, NO_MESSAGES.length - 1)];
+      const msg = NO_MESSAGES[Math.min(noCount, NO_MESSAGES.length - 1)];
       noBtn.textContent = msg;
-      noClickCount++;
-      moveNoButton();
+      noCount++;
+      moveNo();
     }
 
-    // Works on mobile + desktop
+    // Desktop + mobile
     noBtn.addEventListener("pointerenter", evade);
     noBtn.addEventListener("pointerdown", (e) => { e.preventDefault(); evade(); });
     noBtn.addEventListener("click", (e) => { e.preventDefault(); evade(); });
 
+    function dropConfetti(){
+      confetti.innerHTML = "";
+      const icons = ["💖","💘","💗","💞","✨","🫶"];
+      for(let i=0;i<46;i++){
+        const s = document.createElement("span");
+        s.textContent = icons[rand(0, icons.length-1)];
+        s.style.left = rand(0, 100) + "vw";
+        s.style.animationDuration = rand(1600, 3200) + "ms";
+        s.style.animationDelay = rand(0, 700) + "ms";
+        s.style.fontSize = rand(16, 28) + "px";
+        confetti.appendChild(s);
+      }
+      setTimeout(() => confetti.innerHTML = "", 4200);
+    }
+
     yesBtn.addEventListener("click", () => {
       noBtn.classList.add("hidden");
-      hint.classList.add("hidden");
+      dropConfetti();
+
       card.innerHTML = `
+        <div class="tag">✅ Confirmed • Valentine secured</div>
         <h1>${SUCCESS_LINE_1}</h1>
         <div class="yay">${SUCCESS_LINE_2}</div>
-        <div style="margin-top:18px;font-size:40px;">💞💞💞</div>
+        <div class="yay">${SUCCESS_LINE_3}</div>
+        <div class="yay">${SUCCESS_LINE_4}</div>
+        <div style="margin-top:18px;font-size:44px;">💞💞💞</div>
       `;
     });
 
+    // Place No near the card initially
     window.addEventListener("load", () => {
       const rect = card.getBoundingClientRect();
-      noBtn.style.left = (rect.left + rect.width/2 + 90) + "px";
-      noBtn.style.top  = (rect.top + rect.height/2 + 60) + "px";
+      noBtn.style.left = (rect.left + rect.width/2 + 120) + "px";
+      noBtn.style.top  = (rect.top + rect.height/2 + 80) + "px";
       noBtn.style.transform = "translate(-50%,-50%)";
     });
   </script>
